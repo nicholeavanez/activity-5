@@ -28,10 +28,10 @@ public class BoardService {
     /**
      * Constructor initializes required services.
      */
-    public BoardService() {
-        this.cellService = new CellService();
-        this.rowService = new RowService();
-        this.fileService = new FileService();
+    public BoardService(CellService cellService, RowService rowService, FileService fileService) {
+        this.cellService = cellService;
+        this.rowService = rowService;
+        this.fileService = fileService;
     }
 
     /**
@@ -77,7 +77,7 @@ public class BoardService {
      * @param board the Board to print
      */
     public void print(Board board) {
-        System.out.println();
+		System.out.println();
         board.getRows().forEach(rowService::printRow);
     }
 
