@@ -2,6 +2,7 @@ package com.ecc.nichole.app;
 
 import com.ecc.nichole.model.Board;
 import com.ecc.nichole.service.BoardService;
+import com.ecc.nichole.service.CellService;
 import com.ecc.nichole.service.RowService;
 import com.ecc.nichole.service.FileService;
 import com.ecc.nichole.util.Utils;
@@ -20,7 +21,9 @@ public class Exercise5 {
      */
     public static void main(final String[] args) {
         FileService fileService = new FileService();
-        BoardService boardService = new BoardService();
+		CellService cellService = new CellService();
+		RowService rowService = new RowService();
+        BoardService boardService = new BoardService(cellService, rowService, fileService);
 
         String fileName = args.length > 0 ? args[0] : "file.txt";
 
@@ -30,7 +33,7 @@ public class Exercise5 {
             System.out.println("Creating a new board.");
             int rows = Utils.getIntegerInput("Rows: ");
             int columns = Utils.getIntegerInput("Columns: ");
-            board = boardService.createBoard(new RowService(), rows, columns);
+            board = boardService.createBoard(rowService, rows, columns);
             fileService.saveBoardToTextFile(board, fileName);
         }
 
