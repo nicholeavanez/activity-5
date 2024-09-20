@@ -7,6 +7,7 @@ import com.ecc.nichole.model.Cell;
 import com.ecc.nichole.model.Row;
 
 import com.ecc.nichole.service.BoardService;
+import com.ecc.nichole.service.CellService;
 import com.ecc.nichole.service.RowService;
 
 import java.io.File;
@@ -64,7 +65,10 @@ public class FileService {
         File file = new File(fileName);
         List<Row> rows = new ArrayList<>();
         Board board = null;
-        BoardService boardService = new BoardService();
+		FileService fileService = new FileService();
+		CellService cellService = new CellService();
+		RowService rowService = new RowService();
+        BoardService boardService = new BoardService(cellService, rowService, fileService);
 
         try {
             List<String> lines = FileUtils.readLines(file, "UTF-8");
@@ -73,7 +77,7 @@ public class FileService {
                 String firstLine = lines.get(0);
                 String[] cellValues = firstLine.split(Character.toString(CELL_SEPARATOR));
                 board = new Board();
-                board = boardService.createBoard(new RowService(), 0, cellValues.length);
+                board = boardService.createBoard(rowService, 0, cellValues.length);
 
                 for (String line : lines) {
                     Row row = new Row();
