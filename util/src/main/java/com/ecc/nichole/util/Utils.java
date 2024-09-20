@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
  * Utility class for handling user input and validation.
  */
 public class Utils {
-    private static final Scanner scanner = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
 
     /**
      * Prompts the user for a string input.
@@ -34,15 +34,13 @@ public class Utils {
         while (!valid) {
             try {
                 System.out.print(prompt);
-                value = scanner.nextInt();
-                scanner.nextLine(); // Clear the buffer
+                value = Integer.parseInt(scanner.nextLine());
                 if (value > 0) {
                     valid = true;
                 } else {
                     System.out.println("Value must be greater than 0.");
                 }
             } catch (InputMismatchException e) {
-                scanner.nextLine(); // Clear invalid input
                 System.err.println("Invalid input. Please enter a whole number.");
             } catch (Exception e) {
                 System.err.println("Unexpected error: " + e.getMessage());
